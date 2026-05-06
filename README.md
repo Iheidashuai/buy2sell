@@ -58,12 +58,16 @@ Rules:
 ## Build
 
 ```bash
+./mvnw -v
+./mvnw test
 ./mvnw clean verify
 ```
 
-## AI Coding Workflow
+The Maven Enforcer plugin locks the build to JDK 11. If you are using a newer local JDK, install JDK 11 and point `JAVA_HOME` to it before running the build.
 
-Every feature should follow:
+## Spec-Driven AI Workflow
+
+For each feature, do not directly ask the AI to implement from a vague prompt. Use this sequence:
 
 ```text
 /speckit.specify
@@ -75,21 +79,37 @@ Every feature should follow:
 /speckit.implement
 ```
 
-Before implementation, Claude Code must read:
+Claude Code must read:
 
 - `memory/constitution.md`
 - `CLAUDE.md`
-- active `specs/{feature}/spec.md`
-- active `specs/{feature}/plan.md`
-- active `specs/{feature}/tasks.md`
+- active feature files under `specs/{feature}/`
 
-## Example Business Capability
+A task is complete only when:
 
-The starter includes a minimal Task capability:
+1. Implementation matches the active spec.
+2. Tests are added or updated.
+3. `./mvnw clean verify` passes.
+4. `tasks.md` is updated.
+5. Architecture changes are recorded in `docs/adr`.
 
-- Create task
-- Rename task
-- Complete task
-- Query task detail
+## Current Example Capability
 
-The implementation uses an in-memory repository and exists only to validate the architecture and test workflow.
+The starter includes a minimal in-memory Task capability:
+
+- Create a task.
+- Rename a task.
+- Mark a task as completed.
+- Query task details.
+
+This is not intended to be a full product feature. It exists to validate layering, tests, and AI-maintainable structure.
+
+## Push to GitHub
+
+If the GitHub repository has not been created yet:
+
+```bash
+./scripts/push-to-github.sh Iheidashuai buy2sell
+```
+
+This script expects the GitHub CLI `gh` to be installed and authenticated. It creates the repo if missing, initializes Git, commits the project, and pushes to `main`.
