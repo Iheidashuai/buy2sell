@@ -12,7 +12,7 @@
   <description>Spec-driven Java backend starter for AI coding</description>
 
   <modules>
-    <module>buy2sell-shared-kernel</module>
+    <module>buy2sell-common</module>
     <module>buy2sell-domain</module>
     <module>buy2sell-application</module>
     <module>buy2sell-infrastructure</module>

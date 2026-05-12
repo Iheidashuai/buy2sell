@@ -4,16 +4,16 @@ This guide defines where models, DTOs, persistence objects, and utilities belong
 
 ## Shared Kernel
 
-Use `buy2sell-shared-kernel` for code that is stable, broadly reused, and free from technical dependencies.
+Use `buy2sell-common` for code that is stable, broadly reused, and free from technical dependencies.
 
 Allowed examples:
 
-- common model classes shared across multiple modules or bounded contexts;
-- common value objects with no middleware, framework, persistence, transport, or configuration dependency;
 - common utility classes that are deterministic, framework-free, and do not hide infrastructure access;
+- error codes and error abstractions shared across multiple modules;
+- base types with no middleware, framework, persistence, transport, or configuration dependency;
 - small shared exceptions or base types that are not tied to HTTP, RPC, database, Redis, Apollo, MQ, or Spring.
 
-Do not put these in `buy2sell-shared-kernel`:
+Do not put these in `buy2sell-common`:
 
 - database PO, entity, DAO, mapper, or ORM annotations;
 - HTTP/RPC request or response DTOs;
@@ -94,8 +94,9 @@ Examples:
 
 | Item | Module |
 | --- | --- |
-| Common model shared by multiple modules and free from technical dependencies | `buy2sell-shared-kernel` |
-| Common framework-free utility | `buy2sell-shared-kernel` |
+| Common base type shared by multiple modules and free from technical dependencies | `buy2sell-common` |
+| Common framework-free utility | `buy2sell-common` |
+| Common error code or error abstraction | `buy2sell-common` |
 | Feature-specific domain model with business rules | `buy2sell-domain` |
 | Application command/query/view/result | `buy2sell-application` |
 | Repository/cache/config/MQ/RPC port interface | `buy2sell-application` |

@@ -9,10 +9,10 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 class LayerDependencyTest {
 
     @Test
-    void shared_kernel_should_not_depend_on_other_project_modules() {
+    void common_should_not_depend_on_other_project_modules() {
         ArchRule rule = noClasses()
                 .that()
-                .resideInAPackage("com.buy2sell.shared..")
+                .resideInAPackage("com.buy2sell.common..")
                 .should()
                 .dependOnClassesThat()
                 .resideInAnyPackage(

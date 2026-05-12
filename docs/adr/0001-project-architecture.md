@@ -12,7 +12,7 @@ Accepted
 
 Use a Maven multi-module architecture:
 
-- `buy2sell-shared-kernel`
+- `buy2sell-common`
 - `buy2sell-domain`
 - `buy2sell-application`
 - `buy2sell-infrastructure`
@@ -20,7 +20,7 @@ Use a Maven multi-module architecture:
 - `buy2sell-bootstrap`
 - `buy2sell-architecture-test`
 
-`buy2sell-shared-kernel` contains shared model classes and framework-free utilities that are stable across modules. It must not depend on other project modules or infrastructure/framework APIs.
+`buy2sell-common` contains common utilities, error codes, and base types that are stable across modules. It must not depend on other project modules or infrastructure/framework APIs.
 
 ## Consequences
 

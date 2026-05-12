@@ -15,8 +15,8 @@ The project establishes a maintainable AI coding harness: clear specifications, 
 ## Modules
 
 ```text
-buy2sell-shared-kernel
-  Shared model classes and framework-free utilities used across modules.
+buy2sell-common
+  Common utilities, error codes, and base types used across modules.
 
 buy2sell-domain
   Core domain model, value objects, domain exceptions, and business rules.
@@ -40,7 +40,7 @@ buy2sell-architecture-test
 ## Dependency Direction
 
 ```text
-buy2sell-shared-kernel
+buy2sell-common
   ↑
 buy2sell-domain
   ↑
@@ -53,11 +53,11 @@ buy2sell-bootstrap
 
 Rules:
 
-- `shared-kernel` must not depend on other project modules.
-- `domain` may depend on `shared-kernel`, but not on `application`, `infrastructure`, `adapter`, or `bootstrap`.
-- `application` may depend on `shared-kernel` and `domain`, but not on infrastructure or adapter.
-- `infrastructure` may depend on `shared-kernel`, `domain`, and `application`.
-- `adapter` may depend on `shared-kernel` and `application`.
+- `common` must not depend on other project modules.
+- `domain` may depend on `common`, but not on `application`, `infrastructure`, `adapter`, or `bootstrap`.
+- `application` may depend on `common` and `domain`, but not on infrastructure or adapter.
+- `infrastructure` may depend on `common`, `domain`, and `application`.
+- `adapter` may depend on `common` and `application`.
 - `bootstrap` wires the application together.
 - Cyclic dependencies are forbidden.
 
@@ -65,7 +65,7 @@ Rules:
 
 Use [docs/architecture/model-placement.md](docs/architecture/model-placement.md) when deciding where models, DTOs, PO/entity classes, and utility classes belong.
 
-- Common model classes and framework-free utilities: `buy2sell-shared-kernel`.
+- Common utilities, error codes, and base types: `buy2sell-common`.
 - Feature-specific domain models and business rules: `buy2sell-domain`.
 - Commands, queries, views, results, and ports: `buy2sell-application`.
 - HTTP/RPC request and response DTOs: `buy2sell-adapter`.

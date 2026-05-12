@@ -47,7 +47,7 @@ Use Maven Wrapper only.
 Allowed dependency direction:
 
 ```text
-buy2sell-shared-kernel
+buy2sell-common
   ↑
 buy2sell-domain
   ↑
@@ -60,12 +60,12 @@ buy2sell-bootstrap
 
 Rules:
 
-- `buy2sell-shared-kernel` must not depend on any other project module.
-- `buy2sell-domain` may depend on `buy2sell-shared-kernel`.
-- `buy2sell-application` may depend on `buy2sell-shared-kernel` and `buy2sell-domain`.
-- `buy2sell-infrastructure` may depend on `buy2sell-shared-kernel`, `buy2sell-domain`, and `buy2sell-application`.
-- `buy2sell-adapter` may depend on `buy2sell-shared-kernel` and `buy2sell-application`.
-- `buy2sell-bootstrap` may depend on shared-kernel, adapter, infrastructure, application, and domain modules.
+- `buy2sell-common` must not depend on any other project module.
+- `buy2sell-domain` may depend on `buy2sell-common`.
+- `buy2sell-application` may depend on `buy2sell-common` and `buy2sell-domain`.
+- `buy2sell-infrastructure` may depend on `buy2sell-common`, `buy2sell-domain`, and `buy2sell-application`.
+- `buy2sell-adapter` may depend on `buy2sell-common` and `buy2sell-application`.
+- `buy2sell-bootstrap` may depend on common, adapter, infrastructure, application, and domain modules.
 - No circular dependency is allowed.
 
 ## Coding Rules
@@ -80,7 +80,7 @@ Rules:
 
 ## Infrastructure Integration Rules
 
-- Common model classes and framework-free utility classes belong in `buy2sell-shared-kernel`.
+- Common utilities, error codes, and base types belong in `buy2sell-common`.
 - Feature-specific domain models with business rules belong in `buy2sell-domain`.
 - Application commands, queries, views, results, and ports belong in `buy2sell-application`.
 - HTTP/RPC request and response DTOs belong in `buy2sell-adapter`.

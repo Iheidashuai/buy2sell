@@ -10,7 +10,7 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>buy2sell-shared-kernel</artifactId>
+  <artifactId>buy2sell-common</artifactId>
   <packaging>jar</packaging>
 
 </project>

@@ -21,11 +21,11 @@ Claude Code must not implement directly from a vague request. If the user reques
 
 ## 3. Module Boundaries
 
-- `buy2sell-shared-kernel` contains shared model classes and framework-free utilities. It must not depend on any other project module.
-- `buy2sell-domain` is the core domain module. It may depend on `buy2sell-shared-kernel`.
-- `buy2sell-application` may depend on `buy2sell-shared-kernel` and `buy2sell-domain`.
-- `buy2sell-infrastructure` may depend on `buy2sell-shared-kernel`, `buy2sell-domain`, and `buy2sell-application`.
-- `buy2sell-adapter` may depend on `buy2sell-shared-kernel` and `buy2sell-application`.
+- `buy2sell-common` contains common utilities, error codes, and base types. It must not depend on any other project module.
+- `buy2sell-domain` is the core domain module. It may depend on `buy2sell-common`.
+- `buy2sell-application` may depend on `buy2sell-common` and `buy2sell-domain`.
+- `buy2sell-infrastructure` may depend on `buy2sell-common`, `buy2sell-domain`, and `buy2sell-application`.
+- `buy2sell-adapter` may depend on `buy2sell-common` and `buy2sell-application`.
 - `buy2sell-bootstrap` wires modules together and may depend on all runtime modules.
 - Cyclic dependencies are forbidden.
 - External middleware, persistence, cache, configuration-center, RPC client, and framework integration code must stay outside `buy2sell-domain`.
