@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/heidashuai/IdeaProjects/buy2sell/.codex/hooks/java-fast-check.sh'",
+            "timeout": 300
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/heidashuai/IdeaProjects/buy2sell/.codex/hooks/java-final-check.sh'",
+            "timeout": 600
+          }
+        ]
+      }
+    ]
+  }
+}

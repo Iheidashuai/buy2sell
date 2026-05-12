@@ -9,6 +9,24 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 class LayerDependencyTest {
 
     @Test
+    void shared_kernel_should_not_depend_on_other_project_modules() {
+        ArchRule rule = noClasses()
+                .that()
+                .resideInAPackage("com.buy2sell.shared..")
+                .should()
+                .dependOnClassesThat()
+                .resideInAnyPackage(
+                        "com.buy2sell.domain..",
+                        "com.buy2sell.application..",
+                        "com.buy2sell.infrastructure..",
+                        "com.buy2sell.adapter..",
+                        "com.buy2sell.bootstrap.."
+                );
+
+        rule.allowEmptyShould(true).check(new ClassFileImporter().importPackages("com.buy2sell"));
+    }
+
+    @Test
     void domain_should_not_depend_on_other_layers() {
         ArchRule rule = noClasses()
                 .that()

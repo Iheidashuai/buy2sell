@@ -21,12 +21,17 @@ Claude Code must not implement directly from a vague request. If the user reques
 
 ## 3. Module Boundaries
 
-- `buy2sell-domain` is the core domain module. It must not depend on any other project module.
-- `buy2sell-application` may depend on `buy2sell-domain` only.
-- `buy2sell-infrastructure` may depend on `buy2sell-domain` and `buy2sell-application`.
-- `buy2sell-adapter` may depend on `buy2sell-application`.
-- `buy2sell-bootstrap` wires modules together.
+- `buy2sell-shared-kernel` contains shared model classes and framework-free utilities. It must not depend on any other project module.
+- `buy2sell-domain` is the core domain module. It may depend on `buy2sell-shared-kernel`.
+- `buy2sell-application` may depend on `buy2sell-shared-kernel` and `buy2sell-domain`.
+- `buy2sell-infrastructure` may depend on `buy2sell-shared-kernel`, `buy2sell-domain`, and `buy2sell-application`.
+- `buy2sell-adapter` may depend on `buy2sell-shared-kernel` and `buy2sell-application`.
+- `buy2sell-bootstrap` wires modules together and may depend on all runtime modules.
 - Cyclic dependencies are forbidden.
+- External middleware, persistence, cache, configuration-center, RPC client, and framework integration code must stay outside `buy2sell-domain`.
+- Database DTO/PO/entity/DAO/mapper classes belong in `buy2sell-infrastructure`.
+- HTTP/RPC request and response DTOs belong in `buy2sell-adapter`.
+- See `docs/architecture/model-placement.md` for model placement rules.
 
 ## 4. Coding Principles
 
@@ -51,9 +56,9 @@ Claude Code must not implement directly from a vague request. If the user reques
 - Architecture changes must update `docs/adr`.
 - Architecture tests must not be weakened without explicit ADR justification.
 
-## 7. Phase One Scope
+## 7. External Infrastructure
 
-The first phase intentionally forbids:
+External infrastructure and framework dependencies are allowed when needed by a feature, including but not limited to:
 
 - Spring Boot
 - HTTP frameworks
@@ -64,7 +69,7 @@ The first phase intentionally forbids:
 - ORM frameworks
 - RPC frameworks
 
-These dependencies may only be introduced by future specs and plans.
+These dependencies must be introduced through the active feature plan, managed by the root `pom.xml`, and kept outside `buy2sell-domain`.
 
 ## 8. AI Completion Rule
 

@@ -12,6 +12,7 @@
   <description>Spec-driven Java backend starter for AI coding</description>
 
   <modules>
+    <module>buy2sell-shared-kernel</module>
     <module>buy2sell-domain</module>
     <module>buy2sell-application</module>
     <module>buy2sell-infrastructure</module>
@@ -21,6 +22,7 @@
   </modules>
 
   <properties>
+    <spring.boot.version>2.1.6.RELEASE</spring.boot.version>
     <java.version>11</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -38,6 +40,14 @@
 
   <dependencyManagement>
     <dependencies>
+      <!-- SpringBoot 相关依赖 -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>${spring.boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter</artifactId>
@@ -62,93 +72,74 @@
         <version>${archunit.version}</version>
         <scope>test</scope>
       </dependency>
+      <dependency>
+        <groupId>com.xiaohongshu.infra.midware</groupId>
+        <artifactId>redis-spring</artifactId>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>${maven.compiler.plugin.version}</version>
-          <configuration>
-            <release>${java.version}</release>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>${maven.surefire.plugin.version}</version>
-          <configuration>
-            <useModulePath>false</useModulePath>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-enforcer-plugin</artifactId>
-          <version>${maven.enforcer.plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.jacoco</groupId>
-          <artifactId>jacoco-maven-plugin</artifactId>
-          <version>${jacoco.plugin.version}</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.2.0</version>
         <executions>
           <execution>
-            <id>enforce-java-and-dependencies</id>
+            <id>attach-sources</id>
+            <phase>package</phase>
             <goals>
-              <goal>enforce</goal>
+              <goal>jar</goal>
             </goals>
-            <configuration>
-              <rules>
-                <requireJavaVersion>
-                  <version>[11,12)</version>
-                  <message>This project must be built with JDK 11.</message>
-                </requireJavaVersion>
-                <requireMavenVersion>
-                  <version>[3.8.0,)</version>
-                </requireMavenVersion>
-                <dependencyConvergence/>
-              </rules>
-              <fail>true</fail>
-            </configuration>
           </execution>
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>report</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
-          </execution>
-        </executions>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${project.basedir}</directory>
+              <includes>
+                <include>**/.flattened-pom.xml</include>
+              </includes>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
       </plugin>
     </plugins>
   </build>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>snapshots</id>
+      <name>maven snapshot repository</name>
+      <url>https://artifactory.devops.xiaohongshu.com/artifactory/maven-snapshots/</url>
+    </snapshotRepository>
+    <repository>
+      <id>releases</id>
+      <name>maven releases repository</name>
+      <url>https://artifactory.devops.xiaohongshu.com/artifactory/maven-releases/</url>
+    </repository>
+  </distributionManagement>
 </project>

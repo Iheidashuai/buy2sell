@@ -4,7 +4,7 @@
 
 This is `buy2sell`, a JDK 11 Maven multi-module Java backend project designed for Spec-Driven AI Coding.
 
-The project intentionally starts without external infrastructure dependencies such as MySQL, Redis, RocketMQ, Apollo, Spring Boot, HTTP frameworks, ORM frameworks, or RPC frameworks. The first phase focuses on architecture, module boundaries, testability, and maintainable AI coding workflow.
+The project focuses on architecture, module boundaries, testability, and maintainable AI coding workflow. External infrastructure dependencies such as MySQL, Redis, RocketMQ, Apollo, Spring Boot, HTTP frameworks, ORM frameworks, or RPC frameworks are allowed when the active feature plan introduces them explicitly.
 
 ## Required Workflow
 
@@ -47,6 +47,8 @@ Use Maven Wrapper only.
 Allowed dependency direction:
 
 ```text
+buy2sell-shared-kernel
+  ↑
 buy2sell-domain
   ↑
 buy2sell-application
@@ -58,11 +60,12 @@ buy2sell-bootstrap
 
 Rules:
 
-- `buy2sell-domain` must not depend on any other project module.
-- `buy2sell-application` may depend on `buy2sell-domain`.
-- `buy2sell-infrastructure` may depend on `buy2sell-domain` and `buy2sell-application`.
-- `buy2sell-adapter` may depend on `buy2sell-application`.
-- `buy2sell-bootstrap` may depend on adapter, infrastructure, application, and domain modules.
+- `buy2sell-shared-kernel` must not depend on any other project module.
+- `buy2sell-domain` may depend on `buy2sell-shared-kernel`.
+- `buy2sell-application` may depend on `buy2sell-shared-kernel` and `buy2sell-domain`.
+- `buy2sell-infrastructure` may depend on `buy2sell-shared-kernel`, `buy2sell-domain`, and `buy2sell-application`.
+- `buy2sell-adapter` may depend on `buy2sell-shared-kernel` and `buy2sell-application`.
+- `buy2sell-bootstrap` may depend on shared-kernel, adapter, infrastructure, application, and domain modules.
 - No circular dependency is allowed.
 
 ## Coding Rules
@@ -74,6 +77,28 @@ Rules:
 - Prefer immutable value objects where practical.
 - Keep methods small and intention-revealing.
 - Do not weaken or delete tests to make the build pass.
+
+## Infrastructure Integration Rules
+
+- Common model classes and framework-free utility classes belong in `buy2sell-shared-kernel`.
+- Feature-specific domain models with business rules belong in `buy2sell-domain`.
+- Application commands, queries, views, results, and ports belong in `buy2sell-application`.
+- HTTP/RPC request and response DTOs belong in `buy2sell-adapter`.
+- External middleware clients and technical integrations belong in `buy2sell-infrastructure`.
+- `buy2sell-application` may define ports/interfaces for infrastructure capabilities, but should not depend on concrete middleware APIs.
+- `buy2sell-domain` must not import or reference middleware, framework, persistence, cache, RPC, HTTP, or configuration-center APIs.
+- `buy2sell-adapter` owns inbound protocols such as HTTP controllers, RPC providers, facades, request DTOs, and response DTOs.
+- `buy2sell-bootstrap` owns runtime wiring, client initialization, framework bootstrapping, and application configuration assembly.
+- DAO, database entity, ORM mapper, Redis implementation, Apollo implementation, MQ client, and outbound RPC client code should live in `buy2sell-infrastructure`.
+- Application code should access Apollo-backed configuration, Redis, DAO, MQ, and outbound RPC through application-level ports instead of concrete client APIs.
+- Follow `docs/architecture/model-placement.md` when deciding where a model, DTO, PO, or utility belongs.
+
+## Instruction Maintenance Rules
+
+- Long-term coding and module-placement instructions belong in `AGENTS.md` and `CLAUDE.md`.
+- Project-wide principles belong in `memory/constitution.md`.
+- Important architecture decisions and technology choices belong in `docs/adr`.
+- Concrete feature requirements belong in `specs/{feature}/spec.md`, `plan.md`, and `tasks.md`.
 
 ## Testing Rules
 

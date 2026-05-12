@@ -16,6 +16,12 @@
   <dependencies>
     <dependency>
       <groupId>com.buy2sell</groupId>
+      <artifactId>buy2sell-shared-kernel</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.buy2sell</groupId>
       <artifactId>buy2sell-domain</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>

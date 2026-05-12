@@ -2,7 +2,7 @@
 
 `buy2sell` is a JDK 11 + Maven multi-module Java backend starter designed for Spec-Driven AI Coding with Claude Code and GitHub Spec Kit.
 
-The first phase intentionally avoids external infrastructure dependencies such as MySQL, Redis, RocketMQ, Apollo, Spring Boot, HTTP frameworks, ORM frameworks, and RPC frameworks. Its purpose is to establish a maintainable AI coding harness: clear specifications, module boundaries, tests, architecture checks, ADRs, and repeatable verification commands.
+The project establishes a maintainable AI coding harness: clear specifications, module boundaries, tests, architecture checks, ADRs, and repeatable verification commands. External infrastructure dependencies such as databases, Redis, MQ, Apollo, HTTP frameworks, ORM frameworks, and RPC frameworks may be introduced when the active feature plan calls for them.
 
 ## Goals
 
@@ -15,6 +15,9 @@ The first phase intentionally avoids external infrastructure dependencies such a
 ## Modules
 
 ```text
+buy2sell-shared-kernel
+  Shared model classes and framework-free utilities used across modules.
+
 buy2sell-domain
   Core domain model, value objects, domain exceptions, and business rules.
 
@@ -37,6 +40,8 @@ buy2sell-architecture-test
 ## Dependency Direction
 
 ```text
+buy2sell-shared-kernel
+  ↑
 buy2sell-domain
   ↑
 buy2sell-application
@@ -48,12 +53,23 @@ buy2sell-bootstrap
 
 Rules:
 
-- `domain` must not depend on `application`, `infrastructure`, `adapter`, or `bootstrap`.
-- `application` may depend on `domain`, but not on infrastructure or adapter.
-- `infrastructure` may depend on `domain` and `application`.
-- `adapter` may depend on `application`.
+- `shared-kernel` must not depend on other project modules.
+- `domain` may depend on `shared-kernel`, but not on `application`, `infrastructure`, `adapter`, or `bootstrap`.
+- `application` may depend on `shared-kernel` and `domain`, but not on infrastructure or adapter.
+- `infrastructure` may depend on `shared-kernel`, `domain`, and `application`.
+- `adapter` may depend on `shared-kernel` and `application`.
 - `bootstrap` wires the application together.
 - Cyclic dependencies are forbidden.
+
+## Model Placement
+
+Use [docs/architecture/model-placement.md](docs/architecture/model-placement.md) when deciding where models, DTOs, PO/entity classes, and utility classes belong.
+
+- Common model classes and framework-free utilities: `buy2sell-shared-kernel`.
+- Feature-specific domain models and business rules: `buy2sell-domain`.
+- Commands, queries, views, results, and ports: `buy2sell-application`.
+- HTTP/RPC request and response DTOs: `buy2sell-adapter`.
+- Database DTO/PO/entity/DAO/mapper, Redis, Apollo, MQ, and outbound RPC implementation models: `buy2sell-infrastructure`.
 
 ## Build
 
