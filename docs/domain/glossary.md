@@ -16,6 +16,18 @@ A user-visible or system capability documented under `specs/{feature}/`.
 
 The authoritative requirement source for a feature. Feature details belong in `specs/{feature}/spec.md`, `plan.md`, and `tasks.md`.
 
+### Architecture Rule
+
+An executable test or documented constraint that protects module boundaries, technology isolation, package conventions, or dependency governance.
+
+### Technology Isolation
+
+The rule that domain and application code must not depend on concrete frameworks, middleware clients, persistence APIs, HTTP APIs, or other technical integration details.
+
+### Maven Dependency Governance
+
+The rule that external dependency versions are managed from the root POM rather than directly in child module POM files.
+
 ## Example Terms
 
 ### Task
@@ -29,4 +41,3 @@ The human-readable name of a Task. It must be non-blank.
 ### Task Status
 
 The lifecycle state of a Task in the example capability.
-

@@ -95,6 +95,8 @@ For each feature, do not directly ask the AI to implement from a vague prompt. U
 /speckit.implement
 ```
 
+New feature specs should start from the templates in `specs/_template/`.
+
 Claude Code must read:
 
 - `memory/constitution.md`

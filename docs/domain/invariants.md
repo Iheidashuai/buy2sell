@@ -15,3 +15,10 @@ Source: `specs/001-project-bootstrap/`
 
 No product-domain invariants have been specified yet.
 
+## Project Governance
+
+Source: `specs/002-architecture-governance/`
+
+- Domain code must remain free of technical integration details.
+- Application code may define ports but must not depend on concrete middleware or adapter APIs.
+- External dependency versions must be governed from the root POM.

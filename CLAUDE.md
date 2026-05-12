@@ -23,7 +23,7 @@ Before implementing any feature:
    - `quickstart.md` if present
    - `research.md` if present
 4. Do not implement directly from a vague user request.
-5. If the request has no spec, create one using `/speckit.specify`.
+5. If the request has no spec, create one using `/speckit.specify` and the templates under `specs/_template/`.
 6. If the spec is ambiguous, use `/speckit.clarify`.
 7. If there is no implementation plan, use `/speckit.plan`.
 8. If there are no implementation tasks, use `/speckit.tasks`.
@@ -104,6 +104,7 @@ Rules:
 - Project-wide principles belong in `memory/constitution.md`.
 - Important architecture decisions and technology choices belong in `docs/adr`.
 - Concrete feature requirements belong in `specs/{feature}/spec.md`, `plan.md`, and `tasks.md`.
+- New feature specs should start from `specs/_template/`.
 - Feature index entries belong in `specs/README.md`.
 - Stable product capability summaries belong in `docs/product/feature-map.md`.
 - Stable business terms belong in `docs/domain/glossary.md`.

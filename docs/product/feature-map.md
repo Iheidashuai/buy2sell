@@ -17,7 +17,12 @@ This file summarizes stable product capabilities and their relationship to featu
 - Related spec: `specs/001-project-bootstrap/`.
 - Status: implemented.
 
+### Architecture Governance Tests
+
+- Purpose: protect module boundaries, technology isolation, package conventions, and Maven dependency governance through executable tests.
+- Related spec: `specs/002-architecture-governance/`.
+- Status: implemented.
+
 ## Planned Capabilities
 
-No product capabilities have been specified yet.
-
+No product-domain capabilities have been specified yet.

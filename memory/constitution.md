@@ -8,7 +8,7 @@ All functionality must start with a specification. Implementation is only allowe
 - `plan.md`
 - `tasks.md`
 
-Claude Code must not implement directly from a vague request. If the user request lacks a spec, create one with `/speckit.specify` first.
+Claude Code must not implement directly from a vague request. If the user request lacks a spec, create one with `/speckit.specify` first and use `specs/_template/` as the starting structure.
 
 Before implementing a feature, Claude Code must also read the long-term memory indexes:
 
