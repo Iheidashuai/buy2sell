@@ -10,12 +10,19 @@ All functionality must start with a specification. Implementation is only allowe
 
 Claude Code must not implement directly from a vague request. If the user request lacks a spec, create one with `/speckit.specify` first.
 
+Before implementing a feature, Claude Code must also read the long-term memory indexes:
+
+- `specs/README.md`
+- `docs/product/feature-map.md`
+- `docs/domain/glossary.md`
+- `docs/domain/invariants.md`
+
 ## 2. Java and Build Constraints
 
 - The project uses JDK 11.
 - The project uses Maven multi-module build.
 - Maven Wrapper must be used for all build commands.
-- Dependency versions must be controlled by the root `pom.xml` through `dependencyManagement` and `pluginManagement`.
+- Dependency versions must be controlled by the root `pom.xml` through `dependencyManagement`.
 - Child modules must not introduce unmanaged dependency versions.
 - Java 17+ language features and APIs are forbidden.
 
@@ -80,4 +87,15 @@ A Claude Code task is complete only when it reports:
 - changed files grouped by module
 - tests run
 - architecture impact
+- long-term memory updates, or why no update was needed
 - remaining risks
+
+## 9. Long-Term Memory Maintenance
+
+Long-term memory files preserve stable cross-feature knowledge. They are indexes and summaries, not replacements for feature specs.
+
+- `specs/README.md` must be updated when a feature is added, changed, implemented, deprecated, or removed from active planning.
+- `docs/product/feature-map.md` must describe stable product capabilities and feature relationships without implementation detail.
+- `docs/domain/glossary.md` must define stable business terms and merge synonyms under one primary term.
+- `docs/domain/invariants.md` must record durable business rules that future changes must preserve.
+- Feature-specific details, edge cases, acceptance criteria, and implementation tasks must remain in `specs/{feature}/`.

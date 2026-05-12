@@ -6,7 +6,7 @@
 - Build: Maven multi-module
 - Test: JUnit 5, AssertJ
 - Architecture test: ArchUnit
-- Build governance: Maven Enforcer, JaCoCo
+- Build governance: Maven Enforcer
 
 ## Modules
 
@@ -45,18 +45,6 @@ Allowed dependencies:
 - Mockito
 - ArchUnit
 - Maven Enforcer
-- JaCoCo
-
-Forbidden dependencies in phase one:
-
-- Spring Boot
-- MySQL Driver
-- Redis Client
-- RocketMQ Client
-- Apollo Client
-- Web Framework
-- ORM Framework
-- RPC Framework
 
 ## Verification
 
@@ -71,4 +59,3 @@ Expected result:
 - all module tests pass
 - architecture tests pass
 - enforcer rules pass
-- JaCoCo reports are generated

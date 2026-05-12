@@ -79,7 +79,7 @@ Use [docs/architecture/model-placement.md](docs/architecture/model-placement.md)
 ./mvnw clean verify
 ```
 
-The Maven Enforcer plugin locks the build to JDK 11. If you are using a newer local JDK, install JDK 11 and point `JAVA_HOME` to it before running the build.
+Use JDK 11 for local development and verification.
 
 ## Spec-Driven AI Workflow
 
@@ -98,6 +98,10 @@ For each feature, do not directly ask the AI to implement from a vague prompt. U
 Claude Code must read:
 
 - `memory/constitution.md`
+- `specs/README.md`
+- `docs/product/feature-map.md`
+- `docs/domain/glossary.md`
+- `docs/domain/invariants.md`
 - `CLAUDE.md`
 - active feature files under `specs/{feature}/`
 
@@ -108,6 +112,7 @@ A task is complete only when:
 3. `./mvnw clean verify` passes.
 4. `tasks.md` is updated.
 5. Architecture changes are recorded in `docs/adr`.
+6. Long-term memory indexes are updated, or the final response explains why no update was needed.
 
 ## Current Example Capability
 

@@ -5,7 +5,7 @@
 - [x] T001 Create root Maven parent `pom.xml`.
 - [x] T002 Add Maven Wrapper scripts and wrapper properties.
 - [x] T003 Configure dependencyManagement.
-- [x] T004 Configure pluginManagement.
+- [x] T004 Configure build plugins.
 - [x] T005 Configure Maven Enforcer for JDK 11 and dependency convergence.
 
 ## Phase 2: Create Modules
@@ -47,10 +47,9 @@
 
 - [x] T026 Add ArchUnit dependency rules.
 - [x] T027 Add ADR 0001.
-- [x] T028 Add ADR 0002.
 - [x] T029 Update README.
-- [ ] T030 Run `./mvnw clean verify` under JDK 11.
+- [x] T030 Run `./mvnw clean verify` under JDK 11.
 
 ## Notes
 
-T030 is not marked complete here because this generated package was created in an environment without Maven installed and with JDK 21 active. Run it locally with JDK 11.
+T030 was verified locally with JDK 11.

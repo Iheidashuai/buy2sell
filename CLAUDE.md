@@ -11,18 +11,23 @@ The project focuses on architecture, module boundaries, testability, and maintai
 Before implementing any feature:
 
 1. Read `memory/constitution.md`.
-2. Read the active feature files under `specs/{feature}/`:
+2. Read the long-term memory indexes:
+   - `specs/README.md`
+   - `docs/product/feature-map.md`
+   - `docs/domain/glossary.md`
+   - `docs/domain/invariants.md`
+3. Read the active feature files under `specs/{feature}/`:
    - `spec.md`
    - `plan.md`
    - `tasks.md`
    - `quickstart.md` if present
    - `research.md` if present
-3. Do not implement directly from a vague user request.
-4. If the request has no spec, create one using `/speckit.specify`.
-5. If the spec is ambiguous, use `/speckit.clarify`.
-6. If there is no implementation plan, use `/speckit.plan`.
-7. If there are no implementation tasks, use `/speckit.tasks`.
-8. Before implementation, run `/speckit.analyze` when available.
+4. Do not implement directly from a vague user request.
+5. If the request has no spec, create one using `/speckit.specify`.
+6. If the spec is ambiguous, use `/speckit.clarify`.
+7. If there is no implementation plan, use `/speckit.plan`.
+8. If there are no implementation tasks, use `/speckit.tasks`.
+9. Before implementation, run `/speckit.analyze` when available.
 
 ## Java Version
 
@@ -99,6 +104,22 @@ Rules:
 - Project-wide principles belong in `memory/constitution.md`.
 - Important architecture decisions and technology choices belong in `docs/adr`.
 - Concrete feature requirements belong in `specs/{feature}/spec.md`, `plan.md`, and `tasks.md`.
+- Feature index entries belong in `specs/README.md`.
+- Stable product capability summaries belong in `docs/product/feature-map.md`.
+- Stable business terms belong in `docs/domain/glossary.md`.
+- Stable business rules and invariants belong in `docs/domain/invariants.md`.
+- Long-term memory files must stay concise. Do not copy full specs into them; summarize durable cross-feature knowledge only.
+
+## Long-Term Memory Maintenance
+
+After adding or changing a feature, update or explicitly review:
+
+- `specs/README.md`: add or update feature status, links, and short notes.
+- `docs/product/feature-map.md`: add or compress stable product capability summaries.
+- `docs/domain/glossary.md`: add new terms or merge synonyms into existing terms.
+- `docs/domain/invariants.md`: add durable rules that future iterations must preserve.
+
+If none of these files need changes, explain why in the final response.
 
 ## Testing Rules
 
@@ -119,8 +140,9 @@ A task is complete only if:
 3. Maven tests pass.
 4. `tasks.md` is updated.
 5. Any changed architecture decision is documented in `docs/adr`.
-6. The final response includes:
+6. Long-term memory indexes are updated, or the final response explains why no update was needed.
+7. The final response includes:
    - files changed
    - tests run
    - remaining risks
-   - whether spec/plan/tasks/ADR were updated
+   - whether spec/plan/tasks/ADR and long-term memory indexes were updated

@@ -12,15 +12,6 @@ Create the initial `buy2sell` Java backend project skeleton for long-term Spec-D
 - Add AI workflow documents for Claude Code and GitHub Spec Kit.
 - Include a minimal Task example to validate layering.
 
-## Non-Goals
-
-- No database integration.
-- No Redis integration.
-- No RocketMQ integration.
-- No Apollo integration.
-- No HTTP or RPC framework.
-- No Spring Boot in phase one.
-
 ## Example Business Capability
 
 Task management core model:
